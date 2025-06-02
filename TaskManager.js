@@ -24,10 +24,11 @@ class TaskManager {
         localStorage.setItem(this.dbName, JSON.stringify(this.tasks));
     }
     
-    addTask(text) {
+    addTask(text, priority) {
         const newTask = {
             id: Date.now(),
             text,
+            priority,
             completed: false
         };
 
@@ -39,7 +40,10 @@ class TaskManager {
     
     toggleTask(id) {
         this.tasks = this.tasks.map(task => 
-            task.id === id ? { ...task, completed: !task.completed } : task
+            task.id === id ? { 
+                ...task, 
+                completed: !task.completed
+            } : task
         );
         this.saveTasks();
         this.#notifyChange();
